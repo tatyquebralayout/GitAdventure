@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Git Adventure - Aprenda Git de forma interativa e divertida</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/svg+xml" href="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.svg">
+</head>
+<body class="bg-gray-900 text-white">
+  <header class="py-6 bg-gradient-to-r from-indigo-800 to-purple-900">
+    <div class="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between">
+      <div class="flex items-center mb-4 md:mb-0">
+        <img src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.svg" alt="Git Logo" class="h-10 mr-3">
+        <h1 class="text-3xl font-bold">Git Adventure</h1>
+      </div>
+      <nav>
+        <ul class="flex space-x-6">
+          <li><a href="#sobre" class="hover:text-indigo-300 transition">Sobre</a></li>
+          <li><a href="#recursos" class="hover:text-indigo-300 transition">Recursos</a></li>
+          <li><a href="#mundos" class="hover:text-indigo-300 transition">Mundos</a></li>
+          <li><a href="#documentacao" class="hover:text-indigo-300 transition">Documentação</a></li>
+          <li><a href="https://github.com/tatyquebralayout/GitAdventure" class="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded-md transition">GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section id="hero" class="py-20 bg-gradient-to-b from-purple-900 to-gray-900">
+    <div class="container mx-auto px-4 text-center">
+      <h2 class="text-5xl font-bold mb-6">Aprenda Git através de missões envolventes</h2>
+      <p class="text-xl max-w-3xl mx-auto mb-10">
+        Uma jornada interativa para dominar o Git através de desafios práticos, gamificação e uma experiência imersiva.
+      </p>
+      <div class="flex justify-center space-x-4">
+        <a href="https://github.com/tatyquebralayout/GitAdventure" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-md text-lg transition">Ver no GitHub</a>
+        <a href="#primeiros-passos" class="border border-indigo-500 hover:bg-indigo-800 text-white px-6 py-3 rounded-md text-lg transition">Começar agora</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobre" class="py-20">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl font-bold mb-12 text-center">Sobre o Git Adventure</h2>
+      <div class="grid md:grid-cols-2 gap-12 items-center">
+        <div>
+          <p class="text-lg mb-6">
+            Git Adventure é uma plataforma educacional gamificada que transforma o aprendizado do Git em uma experiência envolvente e divertida. Através de uma interface intuitiva e desafios práticos, os usuários podem aprender e praticar conceitos do Git de forma interativa.
+          </p>
+          <p class="text-lg mb-6">
+            Inspirado no formato de jogos de aventura, o Git Adventure oferece diferentes "mundos" temáticos que representam diferentes aspectos e níveis de complexidade do Git - desde comandos básicos até estratégias avançadas de colaboração.
+          </p>
+          <p class="text-lg">
+            O projeto é construído com React, TypeScript e Tailwind CSS, proporcionando uma experiência moderna e responsiva para todos os usuários.
+          </p>
+        </div>
+        <div class="bg-gray-800 p-8 rounded-lg shadow-xl">
+          <div class="terminal-header flex items-center mb-4">
+            <div class="w-3 h-3 rounded-full bg-red-500 mr-2"></div>
+            <div class="w-3 h-3 rounded-full bg-yellow-500 mr-2"></div>
+            <div class="w-3 h-3 rounded-full bg-green-500 mr-2"></div>
+            <span class="text-gray-400 text-sm">terminal</span>
+          </div>
+          <div class="terminal-content font-mono text-green-500">
+            <p class="mb-2">$ git status</p>
+            <p class="mb-2 text-gray-400">On branch master</p>
+            <p class="mb-4 text-gray-400">Your branch is up to date with 'origin/master'.</p>
+            <p class="mb-2">$ git commit -m "Completa missão 1 do mundo Fundamentos"</p>
+            <p class="mb-2 text-gray-400">[master 3a8f9d2] Completa missão 1 do mundo Fundamentos</p>
+            <p class="mb-4 text-gray-400">1 file changed, 10 insertions(+), 2 deletions(-)</p>
+            <p class="mb-2 text-yellow-400">✨ Parabéns! Você completou a Missão 1!</p>
+            <p class="mb-2 text-yellow-400">🏆 Conquista desbloqueada: Primeiro Commit</p>
+            <p class="animate-pulse">█</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="recursos" class="py-20 bg-gray-800">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl font-bold mb-12 text-center">Recursos principais</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+          <div class="text-indigo-400 text-4xl mb-4">🎮</div>
+          <h3 class="text-xl font-bold mb-3">Experiência gamificada</h3>
+          <p>Aprenda Git através de missões, conquistas e progressão de nível que tornam o aprendizado divertido e viciante.</p>
+        </div>
+        <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+          <div class="text-indigo-400 text-4xl mb-4">📚</div>
+          <h3 class="text-xl font-bold mb-3">Tutoriais interativos</h3>
+          <p>Instruções passo-a-passo e dicas contextuais que ajudam a compreender cada conceito do Git de forma clara.</p>
+        </div>
+        <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+          <div class="text-indigo-400 text-4xl mb-4">💻</div>
+          <h3 class="text-xl font-bold mb-3">Terminal Git integrado</h3>
+          <p>Pratique comandos Git diretamente no navegador com feedback imediato e validação automática.</p>
+        </div>
+        <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+          <div class="text-indigo-400 text-4xl mb-4">🏆</div>
+          <h3 class="text-xl font-bold mb-3">Sistema de conquistas</h3>
+          <p>Desbloqueie conquistas à medida que domina diferentes habilidades e conceitos do Git.</p>
+        </div>
+        <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+          <div class="text-indigo-400 text-4xl mb-4">🔐</div>
+          <h3 class="text-xl font-bold mb-3">Autenticação com GitHub</h3>
+          <p>Conecte-se com sua conta GitHub para salvar progresso e acessar recursos personalizados.</p>
+        </div>
+        <div class="bg-gray-900 p-6 rounded-lg shadow-lg">
+          <div class="text-indigo-400 text-4xl mb-4">🧩</div>
+          <h3 class="text-xl font-bold mb-3">Missões organizadas</h3>
+          <p>Progresso estruturado por dificuldade e mundos temáticos para uma curva de aprendizado suave.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="mundos" class="py-20">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl font-bold mb-12 text-center">Mundos temáticos</h2>
+      <div class="grid md:grid-cols-3 gap-10">
+        <div class="bg-gradient-to-b from-blue-900 to-blue-800 p-6 rounded-lg shadow-lg overflow-hidden relative">
+          <h3 class="text-2xl font-bold mb-3">Fundamentos do Git</h3>
+          <p class="mb-4">Aprenda os conceitos básicos do Git como inicialização de repositório, staging e commits.</p>
+          <ul class="text-gray-300 mb-6">
+            <li class="mb-2">• Inicialização de repositório</li>
+            <li class="mb-2">• Comandos básicos</li>
+            <li class="mb-2">• Staging e commits</li>
+          </ul>
+          <div class="world-badge absolute top-4 right-4 bg-blue-700 text-xs px-2 py-1 rounded-full">Iniciante</div>
+        </div>
+        <div class="bg-gradient-to-b from-purple-900 to-purple-800 p-6 rounded-lg shadow-lg overflow-hidden relative">
+          <h3 class="text-2xl font-bold mb-3">Mundo das Branches</h3>
+          <p class="mb-4">Domine o trabalho com branches, merge e resolução de conflitos.</p>
+          <ul class="text-gray-300 mb-6">
+            <li class="mb-2">• Criação e gerenciamento de branches</li>
+            <li class="mb-2">• Merge e resolução de conflitos</li>
+            <li class="mb-2">• Estratégias de branching</li>
+          </ul>
+          <div class="world-badge absolute top-4 right-4 bg-purple-700 text-xs px-2 py-1 rounded-full">Intermediário</div>
+        </div>
+        <div class="bg-gradient-to-b from-red-900 to-red-800 p-6 rounded-lg shadow-lg overflow-hidden relative">
+          <h3 class="text-2xl font-bold mb-3">Universo Remoto</h3>
+          <p class="mb-4">Aprenda a trabalhar com repositórios remotos e colaboração em equipe.</p>
+          <ul class="text-gray-300 mb-6">
+            <li class="mb-2">• Trabalho com repositórios remotos</li>
+            <li class="mb-2">• Colaboração em equipe</li>
+            <li class="mb-2">• Pull requests e code review</li>
+          </ul>
+          <div class="world-badge absolute top-4 right-4 bg-red-700 text-xs px-2 py-1 rounded-full">Avançado</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="primeiros-passos" class="py-20 bg-gray-800">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl font-bold mb-12 text-center">Primeiros Passos</h2>
+      <div class="grid md:grid-cols-2 gap-12">
+        <div>
+          <h3 class="text-2xl font-bold mb-4">Instalação</h3>
+          <div class="bg-gray-900 p-4 rounded-md font-mono text-sm mb-6">
+            <p class="mb-2"># Clone o repositório</p>
+            <p class="text-green-400 mb-4">git clone https://github.com/tatyquebralayout/GitAdventure.git</p>
+            <p class="mb-2"># Instale as dependências</p>
+            <p class="text-green-400 mb-4">cd GitAdventure && npm install</p>
+            <p class="mb-2"># Inicie o servidor de desenvolvimento</p>
+            <p class="text-green-400">npm run dev</p>
+          </div>
+          <p class="text-gray-300">
+            Após a inicialização, acesse <span class="text-indigo-400">http://localhost:3000</span> em seu navegador para começar sua aventura Git.
+          </p>
+        </div>
+        <div>
+          <h3 class="text-2xl font-bold mb-4">Pré-requisitos</h3>
+          <ul class="space-y-4">
+            <li class="flex items-start">
+              <div class="text-indigo-400 mr-2">✓</div>
+              <div>
+                <span class="font-bold">Node.js</span> - Versão 18 ou superior
+              </div>
+            </li>
+            <li class="flex items-start">
+              <div class="text-indigo-400 mr-2">✓</div>
+              <div>
+                <span class="font-bold">npm</span> ou <span class="font-bold">yarn</span> - Para gerenciamento de dependências
+              </div>
+            </li>
+            <li class="flex items-start">
+              <div class="text-indigo-400 mr-2">✓</div>
+              <div>
+                <span class="font-bold">Git</span> - Instalado localmente para melhor experiência
+              </div>
+            </li>
+            <li class="flex items-start">
+              <div class="text-indigo-400 mr-2">✓</div>
+              <div>
+                <span class="font-bold">Navegador moderno</span> - Chrome, Firefox, Safari ou Edge
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="documentacao" class="py-20">
+    <div class="container mx-auto px-4">
+      <h2 class="text-4xl font-bold mb-12 text-center">Documentação</h2>
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-bold mb-3">Estrutura de Módulos</h3>
+          <p class="mb-4">O projeto segue uma arquitetura modular com separação clara de responsabilidades.</p>
+          <a href="https://github.com/tatyquebralayout/GitAdventure/blob/master/README.md" class="text-indigo-400 hover:underline">Ver documentação →</a>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-bold mb-3">Serviços</h3>
+          <p class="mb-4">Serviços compartilhados que encapsulam a lógica de negócio independente da UI.</p>
+          <a href="https://github.com/tatyquebralayout/GitAdventure/blob/master/src/services/README.md" class="text-indigo-400 hover:underline">Ver documentação →</a>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-bold mb-3">Módulo de Missões</h3>
+          <p class="mb-4">Estrutura e funcionamento do sistema de missões e desafios.</p>
+          <a href="https://github.com/tatyquebralayout/GitAdventure/blob/master/src/modules/missions/README.md" class="text-indigo-400 hover:underline">Ver documentação →</a>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-bold mb-3">Autenticação</h3>
+          <p class="mb-4">Integração com GitHub OAuth e gerenciamento de usuários.</p>
+          <a href="https://github.com/tatyquebralayout/GitAdventure/blob/master/src/modules/auth/README.md" class="text-indigo-400 hover:underline">Ver documentação →</a>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-bold mb-3">Sistema de Progresso</h3>
+          <p class="mb-4">Rastreamento de progresso, conquistas e status do usuário.</p>
+          <a href="https://github.com/tatyquebralayout/GitAdventure/blob/master/src/modules/progress/README.md" class="text-indigo-400 hover:underline">Ver documentação →</a>
+        </div>
+        <div class="bg-gray-800 p-6 rounded-lg shadow-lg">
+          <h3 class="text-xl font-bold mb-3">Contribuindo</h3>
+          <p class="mb-4">Guia para contribuir com o desenvolvimento do projeto.</p>
+          <a href="https://github.com/tatyquebralayout/GitAdventure/blob/master/CONTRIBUINDO.md" class="text-indigo-400 hover:underline">Ver documentação →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="py-10 bg-gray-900 border-t border-gray-800">
+    <div class="container mx-auto px-4">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <div class="flex items-center">
+            <img src="https://git-scm.com/images/logos/downloads/Git-Icon-1788C.svg" alt="Git Logo" class="h-8 mr-3">
+            <h2 class="text-xl font-bold">Git Adventure</h2>
+          </div>
+          <p class="text-gray-400 mt-2">Uma jornada interativa para aprender Git</p>
+        </div>
+        <div class="flex space-x-6">
+          <a href="https://github.com/tatyquebralayout/GitAdventure" class="text-gray-400 hover:text-white transition">
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z" clip-rule="evenodd"></path>
+            </svg>
+          </a>
+          <a href="https://twitter.com/tatyquebralayout" class="text-gray-400 hover:text-white transition">
+            <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M8.29 20.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0022 5.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996a4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.072 4.072 0 012.8 9.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 012 18.407a11.616 11.616 0 006.29 1.84"></path>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="mt-8 border-t border-gray-800 pt-8 text-center text-sm text-gray-400">
+        <p>&copy; 2025 Git Adventure. Todos os direitos reservados.</p>
+        <p class="mt-2">Este projeto está sob a licença <a href="https://github.com/tatyquebralayout/GitAdventure/blob/master/LICENSE" class="text-indigo-400 hover:underline">MIT</a>.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html> 
