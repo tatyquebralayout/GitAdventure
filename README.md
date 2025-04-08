@@ -118,6 +118,44 @@ O Git Adventure é organizado em mundos temáticos, cada um focando em diferente
    - Colaboração em equipe
    - Pull requests e code review
 
+## 🚀 GitHub Pages e Deploy
+
+O projeto inclui uma configuração completa de GitHub Pages para mostrar uma documentação interativa do projeto.
+
+### 📄 Estrutura do GitHub Pages
+- `docs/` - Contém todos os arquivos do site publicado no GitHub Pages
+- `docs/index.html` - Página principal do site
+- `docs/styles.css` - Estilos personalizados para o site
+- `docs/_config.yml` - Configuração do GitHub Pages
+
+### 🔄 Scripts de Automação
+
+Para facilitar o processo de publicação e atualização do GitHub Pages, o projeto inclui scripts de automação:
+
+#### Windows (PowerShell)
+```powershell
+# Execute diretamente no PowerShell
+./deploy.ps1
+```
+
+#### Linux/Mac (Bash)
+```bash
+# Primeiro dê permissão de execução
+chmod +x deploy.sh
+
+# Em seguida execute
+./deploy.sh
+```
+
+Estes scripts automatizam:
+1. Verificação do branch atual (deve ser master)
+2. Verificação e commit de alterações pendentes
+3. Push para o repositório remoto
+4. Sincronização dos arquivos da pasta docs/ com o branch gh-pages
+5. Push do branch gh-pages para o GitHub
+
+Após a execução, o site estará disponível em: [https://tatyquebralayout.github.io/GitAdventure/](https://tatyquebralayout.github.io/GitAdventure/)
+
 ## 👥 Contribuindo
 
 Contribuições são sempre bem-vindas! Veja como você pode ajudar:
