@@ -1,68 +1,21 @@
 import { useState } from 'react';
-import { WorldView } from './modules/worlds/components/WorldView';
-import { DialogueBox } from './modules/shared/components/DialogueBox';
-import { Terminal } from './modules/shared/components/Terminal';
-import { ProgressSection } from './modules/shared/components/ProgressSection';
-import { StorytellingSection } from './modules/shared/components/StorytellingSection';
-import { UserProfile } from './modules/shared/components/UserProfile';
-import { WorldDetailsModal } from './modules/shared/components/WorldDetailsModal';
-import { MissionsGallery } from './modules/shared/components/MissionsGallery';
-import { WorldsBlog } from './modules/shared/components/WorldsBlog';
-import { Project } from './modules/shared/components/Project';
-import { useGit } from './modules/git/hooks/useGit';
-import { useChallenge } from './modules/git/hooks/useChallenge';
-import { Github, Globe, BookOpen, Target, Heart, Star } from 'lucide-react';
-import type { World } from './modules/worlds/types';
-import { sampleWorlds } from './modules/worlds/data/sampleData';
+import { LoginButton } from './modules/auth';
+import { MissionsGrid } from './modules/missions';
+import { AchievementsDisplay } from './modules/progress';
+import { useAuth } from './context/AuthContext';
+import { Github, Globe, BookOpen } from 'lucide-react';
+import type { Mission } from './modules/missions/types';
+import { sampleMissions } from './modules/missions/data/sampleMissions';
 
 function App() {
-  const [activeTab, setActiveTab] = useState<'universe' | 'missions' | 'blog' | 'project'>('universe');
-  const [selectedWorld, setSelectedWorld] = useState<World | null>(null);
-  const [showWorldDetails, setShowWorldDetails] = useState(false);
-  const { gitState } = useGit();
-  const { challenge, getCurrentHint, getNextHint } = useChallenge();
-  const [terminalOutput, setTerminalOutput] = useState('');
+  const { authState } = useAuth();
+  const [activeTab, setActiveTab] = useState<'missions' | 'achievements' | 'about'>('missions');
+  const [selectedWorldId, setSelectedWorldId] = useState<string>('world-1');
+  const [selectedMission, setSelectedMission] = useState<Mission | null>(null);
 
-  const handleCommand = (command: string) => {
-    setTerminalOutput(prev => `${prev}\n$ ${command}`);
+  const handleMissionSelect = (mission: Mission) => {
+    setSelectedMission(mission);
   };
-
-  const handleStart = () => {
-    console.log('Starting challenge...');
-  };
-
-  const handleWorldSelect = (world: World) => {
-    setSelectedWorld(world);
-    setShowWorldDetails(true);
-  };
-
-  const handleEnterWorld = () => {
-    setShowWorldDetails(false);
-    setActiveTab('missions');
-  };
-
-  const sampleStories = [
-    {
-      id: '1',
-      title: 'O Início da Jornada',
-      content: 'Sua aventura no mundo do Git começa aqui...',
-      isCompleted: false
-    },
-    {
-      id: '2',
-      title: 'Descobrindo Branches',
-      content: 'Um novo poder se revela: as branches...',
-      isCompleted: false
-    }
-  ];
-
-  if (activeTab === 'blog') {
-    return <WorldsBlog />;
-  }
-
-  if (activeTab === 'project') {
-    return <Project />;
-  }
 
   return (
     <div className="min-h-screen bg-github-dark">
@@ -71,14 +24,6 @@ function App() {
       <div className="fixed inset-0 bg-gradient-dark pointer-events-none" />
       <div className="fixed inset-0 bg-gradient-glow opacity-50 pointer-events-none" />
       
-      {showWorldDetails && selectedWorld && (
-        <WorldDetailsModal
-          world={selectedWorld}
-          onClose={() => setShowWorldDetails(false)}
-          onEnter={handleEnterWorld}
-        />
-      )}
-      
       <header className="bg-github-darker/80 border-b border-github-border sticky top-0 z-50 backdrop-blur-sm">
         <div className="container mx-auto px-4">
           <div className="h-16 flex items-center justify-between">
@@ -86,219 +31,191 @@ function App() {
               <Github className="w-8 h-8 text-github-accent" />
               <span className="text-github-text-primary text-xl font-semibold">Git Adventure</span>
             </div>
-            <nav>
-              <ul className="flex gap-8">
+            <nav className="flex-1 mx-8">
+              <ul className="flex gap-8 justify-center">
                 <li>
                   <button
-                    onClick={() => setActiveTab('universe')}
+                    onClick={() => setActiveTab('missions')}
                     className={`text-github-text-primary hover:text-github-accent transition-colors duration-200 text-sm font-medium flex items-center gap-2 ${
-                      activeTab === 'universe' ? 'text-github-accent' : ''
+                      activeTab === 'missions' ? 'text-github-accent' : ''
                     }`}
                   >
                     <Globe className="w-4 h-4" />
-                    Início
+                    Missões
                   </button>
                 </li>
                 <li>
                   <button
-                    onClick={() => setActiveTab('blog')}
+                    onClick={() => setActiveTab('achievements')}
                     className={`text-github-text-primary hover:text-github-accent transition-colors duration-200 text-sm font-medium flex items-center gap-2 ${
-                      activeTab === 'blog' ? 'text-github-accent' : ''
+                      activeTab === 'achievements' ? 'text-github-accent' : ''
                     }`}
                   >
                     <BookOpen className="w-4 h-4" />
-                    Blog
+                    Conquistas
                   </button>
                 </li>
                 <li>
                   <button
-                    onClick={() => setActiveTab('project')}
+                    onClick={() => setActiveTab('about')}
                     className={`text-github-text-primary hover:text-github-accent transition-colors duration-200 text-sm font-medium flex items-center gap-2 ${
-                      activeTab === 'project' ? 'text-github-accent' : ''
+                      activeTab === 'about' ? 'text-github-accent' : ''
                     }`}
                   >
                     <Github className="w-4 h-4" />
-                    Projeto
+                    Sobre
                   </button>
                 </li>
               </ul>
             </nav>
+            <LoginButton size="sm" />
           </div>
         </div>
       </header>
 
       <main className="relative container mx-auto px-4 py-8">
-        <div className="grid grid-cols-2 gap-8">
-          {/* Left Column */}
+        {activeTab === 'missions' && (
           <div className="space-y-8">
             <div className="bg-github-darker/80 rounded-lg border border-github-border p-6 backdrop-blur-sm shadow-github-heavy">
-              <h2 className="text-github-text-primary text-xl font-semibold mb-6">
-                {activeTab === 'universe' ? 'Explore e desbloqueie os mundos' : `Missões: ${selectedWorld?.name || 'Selecione um Mundo'}`}
-              </h2>
-              
-              <div className="flex border-b border-github-border mb-6">
-                <button
-                  onClick={() => setActiveTab('universe')}
-                  className={`
-                    flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors duration-200
-                    ${activeTab === 'universe'
-                      ? 'text-github-text-primary border-b-2 border-github-accent'
-                      : 'text-github-text-secondary hover:text-github-text-primary'
-                    }
-                  `}
-                >
-                  <Globe className="w-4 h-4" />
-                  Universo
-                </button>
-                <button
-                  onClick={() => setActiveTab('missions')}
-                  className={`
-                    flex items-center gap-2 px-4 py-3 text-sm font-medium transition-colors duration-200
-                    ${activeTab === 'missions'
-                      ? 'text-github-text-primary border-b-2 border-github-accent'
-                      : 'text-github-text-secondary hover:text-github-text-primary'
-                    }
-                  `}
-                >
-                  <Target className="w-4 h-4" />
-                  Missões do Mundo
-                </button>
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="text-github-text-primary text-xl font-semibold">
+                  Missões: Fundamentos do Git
+                </h2>
+                <div className="flex gap-2">
+                  <button 
+                    onClick={() => setSelectedWorldId('world-1')}
+                    className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+                      selectedWorldId === 'world-1' 
+                        ? 'bg-github-accent text-white' 
+                        : 'bg-github-border/20 text-github-text-secondary hover:bg-github-border/30'
+                    }`}
+                  >
+                    Mundo 1
+                  </button>
+                  <button 
+                    onClick={() => setSelectedWorldId('world-2')}
+                    className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+                      selectedWorldId === 'world-2' 
+                        ? 'bg-github-accent text-white' 
+                        : 'bg-github-border/20 text-github-text-secondary hover:bg-github-border/30'
+                    }`}
+                  >
+                    Mundo 2
+                  </button>
+                </div>
               </div>
-
-              {activeTab === 'universe' ? (
-                <WorldView
-                  worlds={sampleWorlds}
-                  onWorldSelect={handleWorldSelect}
-                  currentWorld={selectedWorld?.id}
-                />
-              ) : (
-                <MissionsGallery worldId={selectedWorld?.id} />
-              )}
+              
+              <MissionsGrid 
+                worldId={selectedWorldId} 
+                onSelectMission={handleMissionSelect} 
+              />
             </div>
             
-            <DialogueBox
-              message={getCurrentHint()}
-              character={{
-                name: "Professor Octocat",
-                avatar: "https://github.githubassets.com/images/modules/logos_page/Octocat.png"
-              }}
-              onStart={handleStart}
-              onHint={getNextHint}
-            />
-
-            <ProgressSection challenge={challenge} />
-
-            <StorytellingSection 
-              stories={sampleStories}
-              currentStory={sampleStories[1]}
-            />
-          </div>
-
-          {/* Right Column */}
-          <div className="space-y-8">
-            <Terminal 
-              type="simulation" 
-              output={`Status do Repositório:\n${JSON.stringify(gitState, null, 2)}`} 
-            />
-            <Terminal
-              type="interactive"
-              onCommand={handleCommand}
-              output={terminalOutput}
-            />
-            <UserProfile />
-          </div>
-        </div>
-      </main>
-
-      <footer className="bg-github-darker border-t border-github-border py-12 backdrop-blur-sm">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-              {/* Creator Profile */}
-              <div className="space-y-6">
-                <div className="flex items-center gap-4">
-                  <img
-                    src="https://github.com/tatyquebralayout.png"
-                    alt="Tatiana Quebra Layout"
-                    className="w-16 h-16 rounded-full border-2 border-github-border"
-                  />
-                  <div>
-                    <h3 className="text-xl font-semibold text-github-text-primary">
-                      Tatiana Quebra Layout
-                    </h3>
-                    <p className="text-github-text-secondary">
-                      Criadora do Git Adventure
-                    </p>
-                  </div>
-                </div>
-                <p className="text-github-text-secondary">
-                  Desenvolvedora apaixonada por criar experiências educacionais interativas 
-                  e tornar o aprendizado do Git mais acessível para todos.
+            {selectedMission && (
+              <div className="bg-github-darker/80 rounded-lg border border-github-border p-6 backdrop-blur-sm shadow-github-heavy">
+                <h3 className="text-github-text-primary text-lg font-semibold mb-4">
+                  {selectedMission.title}
+                </h3>
+                <p className="text-github-text-secondary mb-4">
+                  {selectedMission.description}
                 </p>
-                <div className="flex gap-4">
-                  <a
-                    href="https://github.com/tatyquebralayout"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-github-text-secondary hover:text-github-accent transition-colors"
-                  >
-                    <Github className="w-5 h-5" />
-                  </a>
-                  <a
-                    href="https://twitter.com/tatyquebralayout"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-github-text-secondary hover:text-github-accent transition-colors"
-                  >
-                    <Globe className="w-5 h-5" />
-                  </a>
+                
+                <div className="border-t border-github-border pt-4">
+                  <h4 className="text-github-text-primary font-medium mb-2">Requisitos da Missão:</h4>
+                  <ul className="space-y-2">
+                    {selectedMission.requirements.map((req) => (
+                      <li key={req.id} className="flex items-start gap-2">
+                        <span className="w-5 h-5 rounded-full bg-github-border/30 flex items-center justify-center text-xs mt-0.5">
+                          {req.id.split('-')[1]}
+                        </span>
+                        <span className="text-github-text-secondary">{req.description}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div className="border-t border-github-border mt-4 pt-4">
+                  <h4 className="text-github-text-primary font-medium mb-2">Dicas:</h4>
+                  <ul className="space-y-2">
+                    {selectedMission.hints.map((hint) => (
+                      <li key={hint.id} className="text-github-text-secondary">
+                        {hint.text}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <div className="mt-6">
+                  <button className="px-4 py-2 bg-github-accent text-white rounded-md font-medium hover:bg-github-accent/90 transition-colors">
+                    {selectedMission.status === 'available' ? 'Iniciar Missão' : 
+                     selectedMission.status === 'in_progress' ? 'Continuar Missão' : 
+                     'Revisar Missão'}
+                  </button>
                 </div>
               </div>
-
-              {/* Support Links */}
-              <div className="space-y-8">
-                <div className="space-y-4">
-                  <h4 className="text-lg font-semibold text-github-text-primary">
-                    Apoie o Projeto
-                  </h4>
-                  <div className="flex flex-col gap-4">
-                    <a
-                      href="https://github.com/tatyquebralayout/GitAdventure"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-github-text-secondary hover:text-github-accent transition-colors"
-                    >
-                      <Star className="w-5 h-5" />
-                      <span>Dê uma estrela no GitHub</span>
-                    </a>
-                    <a
-                      href="https://github.com/sponsors/tatyquebralayout"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-github-text-secondary hover:text-github-accent transition-colors"
-                    >
-                      <Heart className="w-5 h-5" />
-                      <span>Torne-se um Sponsor</span>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="mt-12 pt-8 border-t border-github-border text-center">
-              <p className="text-github-text-secondary text-sm">
-                © 2025 Git Adventure. Feito com 💙 por{' '}
-                <a
-                  href="https://github.com/tatyquebralayout"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-github-accent hover:text-github-accent/90 transition-colors"
-                >
-                  Tatiana Quebra Layout
-                </a>
+            )}
+          </div>
+        )}
+        
+        {activeTab === 'achievements' && (
+          <div className="bg-github-darker/80 rounded-lg border border-github-border p-6 backdrop-blur-sm shadow-github-heavy">
+            <h2 className="text-github-text-primary text-xl font-semibold mb-6">
+              Suas Conquistas
+            </h2>
+            
+            <AchievementsDisplay />
+          </div>
+        )}
+        
+        {activeTab === 'about' && (
+          <div className="bg-github-darker/80 rounded-lg border border-github-border p-6 backdrop-blur-sm shadow-github-heavy">
+            <h2 className="text-github-text-primary text-xl font-semibold mb-6">
+              Sobre o Git Adventure
+            </h2>
+            
+            <div className="prose prose-invert max-w-none">
+              <p>
+                Git Adventure é uma plataforma educacional gamificada que transforma o aprendizado do Git em uma experiência envolvente e divertida. 
+                Através de uma interface intuitiva e desafios práticos, os usuários podem aprender e praticar conceitos do Git de forma interativa.
+              </p>
+              
+              <h3>Como Funciona</h3>
+              <ol>
+                <li>Faça login com sua conta GitHub</li>
+                <li>Explore os mundos temáticos do Git</li>
+                <li>Complete missões práticas e ganhe conquistas</li>
+                <li>Acompanhe seu progresso e evolua suas habilidades</li>
+              </ol>
+              
+              <h3>Tecnologias</h3>
+              <ul>
+                <li>React para a interface de usuário</li>
+                <li>TypeScript para tipagem estática</li>
+                <li>Tailwind CSS para estilização</li>
+                <li>Integração com API do GitHub</li>
+              </ul>
+              
+              <p className="mt-8">
+                <strong>Versão:</strong> MVP 1.0
               </p>
             </div>
           </div>
+        )}
+      </main>
+
+      <footer className="bg-github-darker border-t border-github-border py-8 backdrop-blur-sm">
+        <div className="container mx-auto px-4 text-center">
+          <p className="text-github-text-secondary text-sm">
+            © 2024 Git Adventure. Feito com 💙 por{' '}
+            <a
+              href="https://github.com/tatyquebralayout"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-github-accent hover:underline"
+            >
+              Tatiana Quebra Layout
+            </a>
+          </p>
         </div>
       </footer>
     </div>
