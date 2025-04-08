@@ -1,0 +1,7 @@
+theme: jekyll-theme-cayman
+title: Git Adventure
+description: Uma jornada interativa para aprender Git através de desafios práticos e missões envolventes
+show_downloads: true
+github:
+  repository_url: https://github.com/tatyquebralayout/GitAdventure
+google_analytics: 
