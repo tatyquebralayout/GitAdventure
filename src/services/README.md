@@ -113,4 +113,12 @@ const missionComplete = validationService.validateAllRequirements(
                        │ Validation Svc  │
                        │                 │
                        └─────────────────┘
-``` 
+```
+
+## Futuras Melhorias
+
+- Sistema de cache inteligente para requisições de API
+- Interceptadores configuráveis para requisições e respostas
+- Mecanismo de retry automático para falhas de comunicação
+- Validação avançada de comandos Git complexos
+- Sistema de sincronização offline/online para storage 
