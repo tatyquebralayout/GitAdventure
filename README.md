@@ -16,6 +16,9 @@ Git Adventure é uma plataforma educacional gamificada que transforma o aprendiz
 - 🏆 Sistema de conquistas e progressão
 - 💻 Terminal Git integrado para prática
 - 📱 Design responsivo e moderno
+- 🔐 Autenticação com GitHub OAuth
+- 🏅 Sistema de progressão com níveis e conquistas
+- 🧩 Missões organizadas por dificuldade e mundos temáticos
 
 ## 🛠️ Tecnologias
 
@@ -25,6 +28,8 @@ Git Adventure é uma plataforma educacional gamificada que transforma o aprendiz
 - **Vite** - Build tool e dev server
 - **Lucide React** - Biblioteca de ícones
 - **Octokit** - SDK oficial do GitHub
+- **OAuth** - Para autenticação com GitHub
+- **Tailwind Scrollbar** - Para personalização de barras de rolagem
 
 ## 🚀 Começando
 
@@ -57,16 +62,42 @@ npm run dev
 git-adventure/
 ├── src/
 │   ├── modules/           # Módulos da aplicação
+│   │   ├── auth/         # Módulo de autenticação OAuth
 │   │   ├── blog/         # Módulo do blog
 │   │   ├── git/          # Módulo do Git
+│   │   ├── missions/     # Módulo de missões e desafios
+│   │   ├── progress/     # Módulo de progresso e conquistas
 │   │   ├── project/      # Módulo do projeto
 │   │   ├── shared/       # Componentes e utilitários compartilhados
 │   │   └── worlds/       # Módulo dos mundos
+│   ├── context/          # Contextos React (AuthContext)
 │   ├── App.tsx           # Componente principal
 │   └── main.tsx          # Ponto de entrada
 ├── public/               # Arquivos estáticos
 └── package.json         # Configurações e dependências
 ```
+
+## 📋 Módulos Principais
+
+### 🔐 Módulo de Autenticação
+O módulo de autenticação permite que os usuários façam login usando suas contas do GitHub através de OAuth, possibilitando:
+- Rastreamento de progresso personalizado
+- Missões específicas baseadas no perfil do usuário
+- Armazenamento de conquistas e progresso
+
+### 🎯 Módulo de Missões
+Contém a estrutura para gerenciar missões práticas de Git, incluindo:
+- Definição de missões com dificuldade progressiva
+- Requisitos específicos para completar cada missão
+- Sistema de validação de comandos Git
+- Dicas e orientações para cada missão
+
+### 📊 Módulo de Progresso
+Gerencia o progresso do usuário na plataforma:
+- Rastreamento de missões completadas
+- Sistema de conquistas desbloqueáveis
+- Níveis de experiência com base nas atividades
+- Visualização de histórico de aprendizado
 
 ## 🎯 Mundos e Desafios
 
@@ -111,4 +142,4 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 Tatiana Quebra Layout - [@tatyquebralayout](https://twitter.com/tatyquebralayout)
 
-Link do Projeto: [https://github.com/tatyquebralayout/git-adventure](https://github.com/tatyquebralayout/git-adventure)
+Link do Projeto: [https://github.com/tatyquebralayout/GitAdventure](https://github.com/tatyquebralayout/GitAdventure)
