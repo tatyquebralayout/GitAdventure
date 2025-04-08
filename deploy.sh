@@ -54,15 +54,53 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
-# Atualizando arquivos
+# Atualizando arquivos - agora copiando para a raiz em vez da pasta docs
 echo -e "\033[0;36m📝 Atualizando arquivos do GitHub Pages...\033[0m"
+
+# Preservando o arquivo .nojekyll e o index.html de redirecionamento na raiz
+preserve_temp_dir=$(mktemp -d)
+
+if [ -f ".nojekyll" ]; then
+    cp .nojekyll "$preserve_temp_dir"
+fi
+
+if [ -f "index.html" ]; then
+    cp index.html "$preserve_temp_dir"
+fi
+
+# Removendo arquivos da pasta docs
 rm -rf docs/*
-mkdir -p docs
-cp -R "$temp_dir"/* docs/
+
+# Copiando os novos arquivos para a raiz
+cp -R "$temp_dir"/* ./
+
+# Restaurando os arquivos preservados
+if [ -f "$preserve_temp_dir/.nojekyll" ]; then
+    cp "$preserve_temp_dir/.nojekyll" ./
+fi
+
+# Criando um novo index.html na raiz que redireciona para a versão correta
+cat > index.html << EOF
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="0;url=index.html">
+  <title>Git Adventure - Aprenda Git de forma interativa</title>
+</head>
+<body>
+  <p>Redirecionando para <a href="index.html">Git Adventure</a>...</p>
+</body>
+</html>
+EOF
+
+# Garantindo que o arquivo .nojekyll existe
+touch .nojekyll
 
 # Commitando alterações
-git add docs/
-deploy_message="Update GitHub Pages: $(date '+%Y-%m-%d %H:%M:%S')"
+git add .
+deploy_message="Update GitHub Pages (root): $(date '+%Y-%m-%d %H:%M:%S')"
 git commit -m "$deploy_message"
 if [ $? -ne 0 ]; then
     echo -e "\033[0;33m⚠️ Nenhuma alteração detectada no GitHub Pages.\033[0m"
@@ -81,6 +119,7 @@ git checkout master
 
 # Limpando diretório temporário
 rm -rf "$temp_dir"
+rm -rf "$preserve_temp_dir"
 
 echo -e "\033[0;32m🎉 Deploy concluído com sucesso!\033[0m"
 echo -e "\033[0;36m   O site está disponível em: https://tatyquebralayout.github.io/GitAdventure/\033[0m" 

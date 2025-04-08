@@ -54,15 +54,56 @@ if ($LASTEXITCODE -ne 0) {
     exit 1
 }
 
-# Atualizando arquivos
+# Atualizando arquivos - agora copiando para a raiz em vez da pasta docs
 Write-Host "📝 Atualizando arquivos do GitHub Pages..." -ForegroundColor Cyan
+
+# Preservando o arquivo .nojekyll e o index.html de redirecionamento na raiz
+$preserveTempDir = Join-Path $env:TEMP "git-adventure-preserve-$(Get-Random)"
+New-Item -ItemType Directory -Path $preserveTempDir -Force | Out-Null
+
+if (Test-Path ".nojekyll") {
+    Copy-Item -Path ".nojekyll" -Destination $preserveTempDir -Force
+}
+
+if (Test-Path "index.html") {
+    Copy-Item -Path "index.html" -Destination $preserveTempDir -Force
+}
+
+# Removendo arquivos da pasta docs
 Remove-Item -Path "docs/*" -Recurse -Force -ErrorAction SilentlyContinue
-New-Item -ItemType Directory -Path "docs" -Force -ErrorAction SilentlyContinue | Out-Null
-Copy-Item -Path "$tempDir/*" -Destination "docs/" -Recurse -Force
+
+# Copiando os novos arquivos para a raiz
+Copy-Item -Path "$tempDir/*" -Destination "./" -Recurse -Force
+
+# Restaurando os arquivos preservados
+if (Test-Path "$preserveTempDir/.nojekyll") {
+    Copy-Item -Path "$preserveTempDir/.nojekyll" -Destination "./" -Force
+}
+
+# Criando um novo index.html na raiz que redireciona para a versão correta
+$indexContent = @"
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="0;url=index.html">
+  <title>Git Adventure - Aprenda Git de forma interativa</title>
+</head>
+<body>
+  <p>Redirecionando para <a href="index.html">Git Adventure</a>...</p>
+</body>
+</html>
+"@
+
+Set-Content -Path "index.html" -Value $indexContent
+
+# Garantindo que o arquivo .nojekyll existe
+"" | Set-Content -Path ".nojekyll"
 
 # Commitando alterações
-git add docs/
-$deployMessage = "Update GitHub Pages: $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
+git add .
+$deployMessage = "Update GitHub Pages (root): $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')"
 git commit -m $deployMessage
 if ($LASTEXITCODE -ne 0) {
     Write-Host "⚠️ Nenhuma alteração detectada no GitHub Pages." -ForegroundColor Yellow
@@ -81,6 +122,7 @@ git checkout master
 
 # Limpando diretório temporário
 Remove-Item -Path $tempDir -Recurse -Force -ErrorAction SilentlyContinue
+Remove-Item -Path $preserveTempDir -Recurse -Force -ErrorAction SilentlyContinue
 
 Write-Host "🎉 Deploy concluído com sucesso!" -ForegroundColor Green
 Write-Host "   O site está disponível em: https://tatyquebralayout.github.io/GitAdventure/" -ForegroundColor Cyan 
