@@ -4,4 +4,10 @@ description: Uma jornada interativa para aprender Git através de desafios prát
 show_downloads: true
 github:
   repository_url: https://github.com/tatyquebralayout/GitAdventure
+  is_project_page: true
+  source:
+    branch: "master"
+    path: "docs"
+baseurl: "/GitAdventure"
+url: "https://tatyquebralayout.github.io"
 google_analytics: 
