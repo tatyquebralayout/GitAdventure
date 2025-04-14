@@ -1,6 +1,5 @@
-import React from 'react';
 import { X, ArrowRight, Star } from 'lucide-react';
-import type { World } from '../types';
+import type { World } from '../../worlds/types';
 
 interface WorldDetailsModalProps {
   world: World;
@@ -16,8 +15,10 @@ export function WorldDetailsModal({ world, onClose, onEnter }: WorldDetailsModal
         <div className="flex items-center justify-between p-6 border-b border-github-border">
           <h2 className="text-xl font-semibold text-github-text-primary">{world.name}</h2>
           <button
+            type="button"
             onClick={onClose}
             className="text-github-text-secondary hover:text-github-text-primary transition-colors"
+            aria-label="Fechar"
           >
             <X className="w-5 h-5" />
           </button>

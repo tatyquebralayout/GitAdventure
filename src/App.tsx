@@ -109,7 +109,7 @@ function App() {
                   <button
                     onClick={() => setActiveTab('blog')}
                     className={`text-github-text-primary hover:text-github-accent transition-colors duration-200 text-sm font-medium flex items-center gap-2 ${
-                      activeTab === 'blog' ? 'text-github-accent' : ''
+                      activeTab === ('blog' as typeof activeTab) ? 'text-github-accent' : ''
                     }`}
                   >
                     <BookOpen className="w-4 h-4" />
@@ -120,7 +120,7 @@ function App() {
                   <button
                     onClick={() => setActiveTab('project')}
                     className={`text-github-text-primary hover:text-github-accent transition-colors duration-200 text-sm font-medium flex items-center gap-2 ${
-                      activeTab === 'project' ? 'text-github-accent' : ''
+                      activeTab === ('project' as typeof activeTab) ? 'text-github-accent' : ''
                     }`}
                   >
                     <Github className="w-4 h-4" />
@@ -248,6 +248,8 @@ function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-github-text-secondary hover:text-github-accent transition-colors"
+                    title="GitHub Profile"
+                    aria-label="GitHub Profile"
                   >
                     <Github className="w-5 h-5" />
                   </a>
@@ -256,6 +258,8 @@ function App() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-github-text-secondary hover:text-github-accent transition-colors"
+                    title="Website"
+                    aria-label="Website"
                   >
                     <Globe className="w-5 h-5" />
                   </a>
