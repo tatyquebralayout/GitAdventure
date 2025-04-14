@@ -13,12 +13,7 @@ export default defineConfig({
     css: true,
   },
   build: {
-    outDir: 'docs',
-    rollupOptions: {
-      input: {
-        main: 'src/main.tsx'
-      }
-    }
+    outDir: 'docs'
   },
   optimizeDeps: {
     exclude: ['lucide-react'],
