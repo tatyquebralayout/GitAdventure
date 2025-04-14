@@ -34,9 +34,12 @@ function App() {
     console.log('Starting challenge...');
   };
 
-  const handleWorldSelect = (world: World) => {
-    setSelectedWorld(world);
-    setShowWorldDetails(true);
+  const handleWorldSelect = (worldId: string) => {
+    const world = sampleWorlds.find(w => w.id === worldId);
+    if (world) {
+      setSelectedWorld(world);
+      setShowWorldDetails(true);
+    }
   };
 
   const handleEnterWorld = () => {
